@@ -1,5 +1,6 @@
-package by.tms.springmarket66;
+package by.tms.springmarket66.initializer;
 
+import by.tms.springmarket66.configuration.SpringConfiguration;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**

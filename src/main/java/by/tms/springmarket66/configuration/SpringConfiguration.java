@@ -1,4 +1,4 @@
-package by.tms.springmarket66;
+package by.tms.springmarket66.configuration;
 
 
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
