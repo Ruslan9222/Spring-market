@@ -29,7 +29,7 @@ public class SpringConfiguration {
     public InternalResourceViewResolver viewResolver() {
         InternalResourceViewResolver internalResourceViewResolver = new InternalResourceViewResolver();
         internalResourceViewResolver.setPrefix("/pages/");
-        internalResourceViewResolver.setSuffix(".jsp");
+        internalResourceViewResolver.setSuffix(".html");
         return internalResourceViewResolver;
     }
 

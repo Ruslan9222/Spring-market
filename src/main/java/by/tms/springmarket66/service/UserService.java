@@ -5,13 +5,18 @@ import by.tms.springmarket66.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class UserProfileService {
+public class UserService {
     @Autowired
     private UserDao userDao;
 
     public void create(User user){
         userDao.save(user);
+    }
+    public List<User> viewAllUsers(){
+        return userDao.findAllUsersWithJpql();
     }
 
     public User findUserById(long id){
