@@ -14,9 +14,9 @@
 <%--<h1>Hello ${myName}!</h1>--%>
 
 <form action="/order" method="post">
-    <input type="text" name="name" placeholder="Name">
-    <input type="text" name="username" placeholder="Username">
-    <input type="password" name="password" placeholder="Password">
+    <input type="text" name="username" placeholder="username">
+    <input type="text" name="productId" placeholder="Product">
+    <input type="text" name="address" placeholder="Adress">
     <button>Submit</button>
 </form>
 </body>

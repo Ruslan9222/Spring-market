@@ -16,9 +16,7 @@ public class Card {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "users_username")
-    private User user;
+    private String username;
 
     private Integer number;
 
