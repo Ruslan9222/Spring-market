@@ -57,8 +57,8 @@ public class UserController {
         return "user/info";
     }
 
-    @PostMapping("/{id}")
-    public String delete(@PathVariable("id") int id, User user) {
+    @PostMapping("/{id}/role")
+    public String setRole(@PathVariable("id") int id, User user) {
         userService.setSeller(id, user);
         return "redirect:/user";
     }

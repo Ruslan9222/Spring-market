@@ -11,7 +11,7 @@
 
 <a th:href="@{/user/{id}/edit(id=${user.getId()})}">Edit</a>
 
-<form th:method="POST" th:action="@{/user/{id}(id=${user.getId()})}">
+<form th:method="POST" th:action="@{/user/{id}(id=${user.getId()})/role}">
     <input type="submit" value="Make a seller!"/>
 </form>
 </body>
