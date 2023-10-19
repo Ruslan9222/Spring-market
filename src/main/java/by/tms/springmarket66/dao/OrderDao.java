@@ -11,11 +11,11 @@ import javax.transaction.Transactional;
 import java.time.LocalDate;
 
 @Repository
-@Transactional
 public class OrderDao {
     @Autowired
     private SessionFactory sessionFactory;
 
+    @Transactional
     public void save(Order order){
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.save(order);
