@@ -1,5 +1,6 @@
 package by.tms.springmarket66.controller;
 
+import by.tms.springmarket66.dao.OrderDao;
 import by.tms.springmarket66.dao.UserDao;
 import by.tms.springmarket66.entity.Order;
 import by.tms.springmarket66.entity.User;
@@ -18,16 +19,18 @@ import java.time.LocalDate;
 @Controller
 @RequestMapping("/order")
 public class OrderCreatorController {
-    private LocalDate localDate;
-    private OrderCreateService orderCreateService;
+
+
     @Autowired
-    @GetMapping // GET localhost:8080/test
+    private OrderCreateService orderCreateService;
+    @GetMapping
     public String order() {
         return "order";
     }
 
     @PostMapping
     public String order(Order order) {
+        LocalDate localDate = LocalDate.now();
         order.setDate(localDate);
         orderCreateService.create(order);
         return "order";
