@@ -1,18 +1,18 @@
 package by.tms.springmarket66.service;
 
+import by.tms.springmarket66.dao.CardDao;
 import by.tms.springmarket66.dao.OrderDao;
-import by.tms.springmarket66.dao.UserDao;
+import by.tms.springmarket66.entity.Card;
 import by.tms.springmarket66.entity.Order;
-import by.tms.springmarket66.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class OrderCreateService {
+public class CardCreateService {
     @Autowired
-    private OrderDao orderDao;
+    private CardDao cardDao;
 
-    public void create(Order order){
-        orderDao.save(order);
+    public void create(Card card){
+        cardDao.save(card);
     }
 }

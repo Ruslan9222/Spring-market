@@ -4,6 +4,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Table(name = "orders")
 @Entity
@@ -17,11 +20,17 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String username;
+    @ManyToOne
+    @JoinColumn(name = "users_id")
+    public User user;
 
     private Long productId;
 
     private String address;
 
-    private LocalDate date;
+    private LocalDateTime date;
+
+
+
+
 }
