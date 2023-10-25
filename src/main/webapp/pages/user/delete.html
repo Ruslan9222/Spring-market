@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete</title>
+</head>
+<body>
+<form th:method="PATCH" th:action="@{/user/delete/{email}(email=${user.getEmail()})}" th:object="${user}">
+    <p th:text="${'Are you sure you want to delete it?  ' + user.getEmail()}">VALUE</p>
+    <input type="submit" value="Yes "/>
+    <a th:href="@{/user/{email}/edit(id=${user.getEmail()})}">No</a>
+</form>
+</body>
+</html>

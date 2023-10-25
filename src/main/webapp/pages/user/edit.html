@@ -1,44 +1,73 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Update person</title>
+    <meta charset="UTF-8">
+    <title>Update person</title>
 </head>
 <body>
+<form th:method="PATCH" th:action="@{/user/{email}(email=${user.getEmail()})}" th:object="${user}">
+    <p th:each="role : ${user.getRoles()}" th:value="${role}" th:text="${role}">VALUE</p>
+    <label for="firstname">Enter Firstname: </label>
+    <input type="text" th:field="*{firstName}" id="firstname"/>
+    <div style="color:red" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstName}">Firstname Error</div>
+    <br/>
+    <label for="age">Enter Lastname: </label>
+    <input type="text" th:field="*{lastName}" id="age"/>
+    <div style="color:red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Lastname Error</div>
+    <br/>
+    <label for="password">Enter password: </label>
+    <input type="text" th:field="*{password}" id="password"/>
+    <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Email Error</div>
+    <br/>
+    <label for="username">Enter Username: </label>
+    <input type="text" th:field="*{username}" id="username"/>
+    <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</div>
+    <br/>
+    <input type="submit" value="Update!"/>
+</form>
+<form th:method="PATCH" th:action="@{/user/{email}/addContact(email=${user.getEmail()})}" th:object="${user}">
+    <label>
+        <select th:field="*{contacts}" multiple>
+            <option th:each="contact : ${user.getContacts()}" th:value="${contact}" th:text="${contact}"></option>
+        </select>
+    </label>
 
-<form th:method="PATCH" th:action="@{/user/{id}(id=${user.getId()})}" th:object="${user}">
-  <label for="firstname">Enter Firstname: </label>
-  <input type="text" th:field="*{firstName}" id="firstname"/>
-<!--
-  <div style="color:red" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstName}">Firstname Error</div>
--->
-  <br/>
-  <label for="age">Enter Lastname: </label>
-  <input type="text" th:field="*{lastName}" id="age"/>
-<!--
-  <div style="color:red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Lastname Error</div>
--->
-  <br/>
-  <label for="email">Enter email: </label>
-  <input type="text" th:field="*{email}" id="email"/>
-<!--
-  <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</div>
--->
-  <br/>
-  <label for="password">Enter password: </label>
-  <input type="text" th:field="*{password}" id="password"/>
-<!--
-  <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Email Error</div>
--->
-  <br/>
-  <label for="username">Enter Username: </label>
-  <input type="text" th:field="*{username}" id="username"/>
-<!--
-  <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</div>
--->
-  <br/>
-  <input type="submit" value="Update!"/>
+</form>
+<form th:object="${user.getContacts()}" th:action="@{/user/{email}/addContact(email=${user.getEmail()})}">
+    <!-- отображение списка значений из Set<String> type -->
+    <label for="typeSelect">Select type of contact:</label>
+    <select id="typeSelect" th:field="*{user.getContacts()}">
+        <option th:each="t : ${user.contacts[0].type}" th:value="${t}" th:text="${t}"></option>
+    </select>
+
+    <!-- ввод нового значения для поля String contact -->
+    <label for="contactInput">Введите новое значение контакта:</label>
+    <input type="text" id="contactInput" th:field="*{user.getContacts()}"/>
+
+    <button type="submit">Сохранить</button>
 </form>
 
+
+<form th:object="${user.getContacts()}" th:method="post" th:action="@{/save}">
+    <div th:each="contact, contactStatus : ${user.getContacts()}">
+        <div>
+            <label>Type:</label>
+            <label>
+                <select th:field="${${contactStatus.index}}" multiple="multiple">
+                    <option value="type1">Type 1</option>
+                    <option value="type2">Type 2</option>
+                    <option value="type3">Type 3</option>
+                </select>
+            </label>
+        </div>
+        <div>
+            <label>Contact:</label>
+            <label>
+                <input type="text" th:field="${${contactStatus.index}}"/>
+            </label>
+        </div>
+    </div>
+    <button type="submit">Save</button>
+</form>
 </body>
 </html>
