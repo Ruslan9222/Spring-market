@@ -4,8 +4,6 @@ import by.tms.springmarket66.dao.UserDao;
 import by.tms.springmarket66.entity.User;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class UserService {
     private final UserDao userDao;
@@ -18,18 +16,15 @@ public class UserService {
         userDao.save(user);
     }
 
-    public List<User> viewAllUsers() {
-        return userDao.findAllUsers();
+    public User findUserByEmail(String email) {
+        return userDao.findUserByEmail(email);
     }
 
-    public User findUserById(long id) {
-        return userDao.findUserById(id);
+    public void updateUserById(String email, User user) {
+        userDao.updateUserProfileByEmail(email, user);
     }
 
-    public void updateUser(long id,User user) {
-        userDao.updateUserProfileById(id,user);
-    }
-    public void setSeller(long id,User user){
-        userDao.updateUserByIdGetSeller(id,user);
+    public void deleteUser(String email) {
+        userDao.removeByEmail(email);
     }
 }

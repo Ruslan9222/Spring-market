@@ -5,16 +5,20 @@
     <title>New person</title>
 </head>
 <body>
-
 <form th:method="POST" th:action="@{/user}" th:object="${user}">
     <label for="email">Enter email: </label>
     <input type="text" th:field="*{email}" id="email"/>
-
+    <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</div>
     <br/>
     <label for="password">Enter password: </label>
     <input type="text" th:field="*{password}" id="password"/>
-
+    <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
     <br/>
+    <label>
+        <select th:field="*{roles}" multiple>
+            <option th:each="role : ${user.getRoles()}" th:value="${role}" th:text="${role}"></option>
+        </select>
+    </label>
     <input type="submit" value="Create!"/>
 </form>
 </body>

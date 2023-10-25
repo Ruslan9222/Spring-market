@@ -1,65 +1,90 @@
 package by.tms.springmarket66.controller;
 
-import by.tms.springmarket66.entity.User;
+import by.tms.springmarket66.dto.CreateDto;
+import by.tms.springmarket66.mapper.Converter;
+import by.tms.springmarket66.service.RoleService;
 import by.tms.springmarket66.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
-    final
-    UserService userService;
+    private final UserService userService;
+    private final Converter converter;
+    private final RoleService roleService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, Converter converter, RoleService roleService) {
         this.userService = userService;
+        this.converter = converter;
+        this.roleService = roleService;
     }
 
-    @GetMapping()
-    public String index(Model model) {
-        model.addAttribute("user", userService.viewAllUsers());
-        return "user/info";
+    @GetMapping
+    public String getHomePage(HttpSession session,
+                              Model model) {
+
+        CreateDto currentUser = (CreateDto) session.getAttribute("currentUser");
+        model.addAttribute("user", currentUser);
+        return "user/home";
     }
-
-    @GetMapping("/{id}")
-    public String show(@PathVariable("id") int id, Model model) {
-        model.addAttribute("person", userService.findUserById(id));
-        return "user/info";
-    }
-
-
-    @GetMapping("/{id}/edit")
-    public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("user", userService.findUserById(id));
-        return "user/edit";
-    }
-
-    @PatchMapping("/{id}")
-    public String update(@ModelAttribute("user") User user,
-                         @PathVariable("id") long id) {
-        userService.updateUser(id, user);
-        return "user/info";
-    }
-
 
     @GetMapping("/new")
-    public String newUser(@ModelAttribute("user") User user) {
+    public String newUser(Model model) {
+        CreateDto createDto = new CreateDto();
+        createDto.setRoles(roleService.getAllRoles());
+        model.addAttribute("user", createDto);
         return "user/new";
     }
 
-    @PostMapping()
-    public String createUser(@ModelAttribute("user") User user) {
-        userService.create(user);
+    @GetMapping("/{email}")
+    public String show(@PathVariable("email") String email, Model model) {
+        model.addAttribute("user", userService.findUserByEmail(email));
         return "user/info";
     }
 
-    @PostMapping("/{id}/role")
-    public String setRole(@PathVariable("id") int id, User user) {
-        userService.setSeller(id, user);
-        return "redirect:/user";
+    @GetMapping("/{email}/edit")
+    public String edit(Model model, @PathVariable("email") String email) {
+        model.addAttribute("user", converter.toDto(userService.findUserByEmail(email)));
+        return "user/edit";
+    }
+
+    @GetMapping("/{email}/delete")
+    public String deleteGet(Model model,
+                            @PathVariable("email") String email) {
+        model.addAttribute("user", userService.findUserByEmail(email));
+        return "user/delete";
+    }
+
+    @PostMapping()
+    public String createUser(@Valid CreateDto createDto,
+                             BindingResult bindingResult,
+                             HttpSession session) {
+        if (bindingResult.hasErrors()) {
+            return "user/new";
+        }
+        session.setAttribute("currentUser", converter.toEntity(createDto));
+        userService.create(converter.toEntity(createDto));
+        return "redirect:/home";
+    }
+
+    @PatchMapping("/{email}")
+    public String update(@ModelAttribute("user") CreateDto createDto,
+                         @PathVariable("email") String email) {
+        userService.findUserByEmail(email);
+        return "user/info";
+    }
+
+    @PatchMapping("/{email}/delete")                      //????????????????????
+    public String delete(@PathVariable("email") String email) {
+        userService.deleteUser(email);
+        return "user/home";
     }
 }
