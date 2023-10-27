@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/order")
+@RequestMapping("/card")
 public class CardController {
 
     @Autowired

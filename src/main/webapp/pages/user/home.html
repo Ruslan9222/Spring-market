@@ -2,9 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>List Users</title>
+    <title> Home Page </title>
 </head>
 <body>
+<a href="/user/new">Login</a>
 <a href="/user/new">Registration</a>
 <a th:href="@{/user/{email}/edit(email=${user.getEmail()})}">Edit profile</a>
 </body>

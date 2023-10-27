@@ -1,6 +1,7 @@
 package by.tms.springmarket66.entity;
 
 import lombok.*;
+import org.hibernate.validator.constraints.pl.NIP;
 
 
 import javax.persistence.*;
@@ -22,6 +23,7 @@ public class User {
 
     private String firstName;
     private String lastName;
+    @NotNull
     private String username;
 
     @NotNull
@@ -38,7 +40,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    public User(String email, String password, Set<Role> roles) {
+    public User(String username, String email, String password, Set<Role> roles) {
+        this.username = username;
         this.email = email;
         this.password = password;
         this.roles = roles;

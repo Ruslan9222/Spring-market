@@ -12,7 +12,10 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CreateDto {
+public class CreateUserDto {
+    @NotNull
+    @NotEmpty
+    private String username;
     @NotNull
     @NotEmpty
     @Email(regexp = ".*@[a-z]*\\.[a-z]{2,}")
