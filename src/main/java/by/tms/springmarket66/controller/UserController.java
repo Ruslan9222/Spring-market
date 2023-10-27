@@ -28,7 +28,7 @@ public class UserController {
     }
 
     @GetMapping("/home")
-    public String getHomePage(HttpSession session,Model model) {
+    public String getHomePage(HttpSession session, Model model) {
 //        CreateDto currentUser = (CreateDto) session.getAttribute("currentUser");
         model.addAttribute("user", new CreateUserDto());
         return "user/home";
@@ -70,7 +70,12 @@ public class UserController {
         }
         session.setAttribute("currentUser", converter.toEntity(createUserDto));
         userService.create(converter.toEntity(createUserDto));
-        return "redirect:user/home";
+        return "redirect:user/mall";
+    }
+
+    @GetMapping("/mall")
+    public String mall(){
+        return "user/mall";
     }
 
     @PatchMapping("/{email}")
