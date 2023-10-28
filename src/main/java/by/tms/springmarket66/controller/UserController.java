@@ -1,6 +1,6 @@
 package by.tms.springmarket66.controller;
 
-import by.tms.springmarket66.dto.CreateDto;
+import by.tms.springmarket66.dto.CreateUserDto;
 import by.tms.springmarket66.mapper.Converter;
 import by.tms.springmarket66.service.RoleService;
 import by.tms.springmarket66.service.UserService;
@@ -27,20 +27,18 @@ public class UserController {
         this.roleService = roleService;
     }
 
-    @GetMapping
-    public String getHomePage(HttpSession session,
-                              Model model) {
-
-        CreateDto currentUser = (CreateDto) session.getAttribute("currentUser");
-        model.addAttribute("user", currentUser);
+    @GetMapping("/home")
+    public String getHomePage(HttpSession session, Model model) {
+//        CreateDto currentUser = (CreateDto) session.getAttribute("currentUser");
+        model.addAttribute("user", new CreateUserDto());
         return "user/home";
     }
 
     @GetMapping("/new")
     public String newUser(Model model) {
-        CreateDto createDto = new CreateDto();
-        createDto.setRoles(roleService.getAllRoles());
-        model.addAttribute("user", createDto);
+        CreateUserDto createUserDto = new CreateUserDto();
+        createUserDto.setRoles(roleService.getAllRoles());
+        model.addAttribute("user", createUserDto);
         return "user/new";
     }
 
@@ -64,19 +62,24 @@ public class UserController {
     }
 
     @PostMapping()
-    public String createUser(@Valid CreateDto createDto,
+    public String createUser(@Valid CreateUserDto createUserDto,
                              BindingResult bindingResult,
                              HttpSession session) {
         if (bindingResult.hasErrors()) {
             return "user/new";
         }
-        session.setAttribute("currentUser", converter.toEntity(createDto));
-        userService.create(converter.toEntity(createDto));
-        return "redirect:/home";
+        session.setAttribute("currentUser", converter.toEntity(createUserDto));
+        userService.create(converter.toEntity(createUserDto));
+        return "redirect:user/mall";
+    }
+
+    @GetMapping("/mall")
+    public String mall(){
+        return "user/mall";
     }
 
     @PatchMapping("/{email}")
-    public String update(@ModelAttribute("user") CreateDto createDto,
+    public String update(@ModelAttribute("user") CreateUserDto createUserDto,
                          @PathVariable("email") String email) {
         userService.findUserByEmail(email);
         return "user/info";

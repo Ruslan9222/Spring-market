@@ -1,7 +1,7 @@
 package by.tms.springmarket66.mapper;
 
 import by.tms.springmarket66.dto.ContactDto;
-import by.tms.springmarket66.dto.CreateDto;
+import by.tms.springmarket66.dto.CreateUserDto;
 
 import by.tms.springmarket66.dto.EditDto;
 import by.tms.springmarket66.entity.Role;
@@ -22,13 +22,13 @@ public class Converter {
         this.contactService = contactService;
     }
 
-    public User toEntity(CreateDto createDto) {
-        Set<Role> roles = createDto.
+    public User toEntity(CreateUserDto createUserDto) {
+        Set<Role> roles = createUserDto.
                 getRoles().
                 stream().
                 map(Role::valueOf).
                 collect(Collectors.toUnmodifiableSet());
-        return new User(createDto.getEmail(), createDto.getPassword(), roles);
+        return new User(createUserDto.getUsername(), createUserDto.getEmail(), createUserDto.getPassword(), roles);
     }
 
     public EditDto toDto(User user) {
