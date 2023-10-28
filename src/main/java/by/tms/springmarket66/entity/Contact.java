@@ -24,4 +24,8 @@ public class Contact {
     private Set<Type> type;
 
     private String contact;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User ownerContacts;
 }

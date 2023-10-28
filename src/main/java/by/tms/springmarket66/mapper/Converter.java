@@ -1,15 +1,18 @@
 package by.tms.springmarket66.mapper;
 
-import by.tms.springmarket66.dto.ContactDto;
-import by.tms.springmarket66.dto.CreateDto;
+import by.tms.springmarket66.dto.EditContactDto;
+import by.tms.springmarket66.dto.CreateUserDto;
 
-import by.tms.springmarket66.dto.EditDto;
+import by.tms.springmarket66.dto.EditProfileDto;
+import by.tms.springmarket66.dto.LoginUserDto;
+import by.tms.springmarket66.entity.Contact;
 import by.tms.springmarket66.entity.Role;
+import by.tms.springmarket66.entity.Type;
 import by.tms.springmarket66.entity.User;
 import by.tms.springmarket66.service.ContactService;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -22,30 +25,81 @@ public class Converter {
         this.contactService = contactService;
     }
 
-    public User toEntity(CreateDto createDto) {
-        Set<Role> roles = createDto.
+    public User loginUserToEntity(LoginUserDto loginUserDto){
+        User user = new User();
+        user.setEmail(loginUserDto.getEmail());
+        user.setPassword(loginUserDto.getPassword());
+        return user;
+    }
+
+    public User createUserToEntity(CreateUserDto createUserDto) {
+        Set<Role> roles = createUserDto.
                 getRoles().
                 stream().
                 map(Role::valueOf).
                 collect(Collectors.toUnmodifiableSet());
-        return new User(createDto.getEmail(), createDto.getPassword(), roles);
+        return new User(createUserDto.getEmail(), createUserDto.getPassword(), roles);
     }
 
-    public EditDto toDto(User user) {
-        EditDto editDto = new EditDto();
-        editDto.setFirstName(user.getFirstName());
-        editDto.setLastName(user.getLastName());
-        editDto.setPassword(user.getPassword());
-        editDto.setUsername(user.getUsername());
-        editDto.setEmail(user.getEmail());
-        ContactDto contactDto = new ContactDto();
-        contactDto.setType(contactService.getAllTypeOfContacts());
-        editDto.setContacts(List.of(contactDto));
-        editDto.setRoles(new HashSet<>());
-        editDto.setRoles(user.getRoles().
+    public EditProfileDto editProfileToDto(User user) {
+        EditProfileDto editProfileDto = new EditProfileDto();
+        editProfileDto.setEmail(user.getEmail());
+        editProfileDto.setFirstName(user.getFirstName());
+        editProfileDto.setLastName(user.getLastName());
+        editProfileDto.setPassword(user.getPassword());
+        editProfileDto.setUsername(user.getUsername());
+        /*EditContactDto editContactDto = new EditContactDto();
+        editContactDto.setType(contactService.getAllTypeOfContacts());
+        editProfileDto.setContacts(List.of(editContactDto));
+        editProfileDto.setRoles(new HashSet<>());
+        editProfileDto.setRoles(user.getRoles().
                 stream().
                 map(String::valueOf).
-                collect(Collectors.toSet()));
-        return editDto;
+                collect(Collectors.toSet()));*/
+        return editProfileDto;
     }
+
+    public User editUserToEntity(EditProfileDto editProfileDto){
+        User user = new User();
+        user.setFirstName(editProfileDto.getFirstName());
+        user.setLastName(editProfileDto.getLastName());
+        user.setUsername(editProfileDto.getUsername());
+        user.setPassword(editProfileDto.getPassword());
+        return user;
+    }
+
+
+
+
+    public EditContactDto editContactToDto(User user){
+        EditContactDto editContactDto = new EditContactDto();
+        editContactDto.setEmail(user.getEmail());
+        editContactDto.setType(contactService.getAllTypeOfContacts());
+        editContactDto.setContact(user.getContacts().
+                stream().
+                map(Contact::getContact).
+                toString());
+        return editContactDto;
+    }
+
+    public User editContactToEntity(EditContactDto editContactDto){
+        User user =  new User();
+        Contact contact = new Contact();
+        List<Contact> contacts = new ArrayList<>();
+        Set<Type> types = editContactDto.getType().
+                stream().
+                map(Type::valueOf).
+                collect(Collectors.toUnmodifiableSet());
+        contact.setType(types);
+        contact.setContact(editContactDto.getContact());
+        contacts.add(contact);
+        user.setContacts(contacts);
+        user.setEmail(editContactDto.getEmail());
+        return user;
+    }
+
+
+
+
+
 }

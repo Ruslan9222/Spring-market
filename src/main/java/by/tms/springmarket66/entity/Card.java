@@ -19,8 +19,8 @@ public class Card {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "users_id")
-    public User user;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User ownerCard;
 
     private Integer number;
 

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Store home page </title>
+</head>
+<body>
+<p th:text="${'id: ' + session.currentUser.getId()}">VALUE</p>
+<p th:text="${'Email: ' + session.currentUser.getEmail()}">VALUE</p>
+<p th:text="${'password : ' + session.currentUser.getPassword()}">VALUE</p>
+<p th:text="${'role : ' + session.currentUser.getRoles()}">VALUE</p>
+<a th:href="@{/user/edit}">Edit profile</a>
+</body>
+</html>

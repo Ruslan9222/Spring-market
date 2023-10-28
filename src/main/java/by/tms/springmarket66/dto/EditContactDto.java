@@ -12,7 +12,10 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ContactDto {
+public class EditContactDto {
+
+    private String email;
+
     @NotNull
     private Set<String> type;
 
