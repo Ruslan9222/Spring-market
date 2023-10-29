@@ -43,15 +43,15 @@ public class UserDao {
         currentSession.update(userProfile);
     }
 
-    public void removeByEmail(String email) {
+    public void removeById(Long id) {
         Session currentSession = sessionFactory.getCurrentSession();
-        User userDel = findUserByEmail(email);
-        userDel.setEmail(email);
-        currentSession.delete(userDel);
+        User user = currentSession.get(User.class, id);
+        currentSession.delete(user);
     }
-    public List<Contact> findContactByOwnerId(Long id){
+
+    public List<Contact> findContactByOwnerId(Long id) {
         Session currentSession = sessionFactory.getCurrentSession();
-        User user = currentSession.get(User.class,id);
+        User user = currentSession.get(User.class, id);
         return user.getContacts();
     }
 }

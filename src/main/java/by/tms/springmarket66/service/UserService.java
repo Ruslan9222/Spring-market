@@ -17,11 +17,11 @@ public class UserService {
         this.userDao = userDao;
     }
 
-    public void create(User user) {
+    public void save(User user) {
         userDao.save(user);
     }
 
-    public User findUserByEmail(String email) {
+    public User getUserByEmail(String email) {
         User byUser = new User();
         Optional<User> currentUser = Optional.ofNullable(userDao.findUserByEmail(email));
         if(currentUser.isPresent()) {
@@ -30,22 +30,21 @@ public class UserService {
                 byUser.setEmail(user.getEmail());
                 byUser.setId(user.getId());
                 byUser.setRoles(new HashSet<>(user.getRoles()));
+                byUser.setPassword(user.getPassword());
             }
         }
-        System.out.println(byUser+"userservice");
             return byUser;
-
     }
 
     public void updateUserById(Long id, User user) {
         userDao.updateUserProfileById(id, user);
     }
 
-    public void deleteUser(String email) {
-        userDao.removeByEmail(email);
+    public void deleteById(Long id) {
+        userDao.removeById(id);
     }
 
-    public List<Contact> findContactsById(Long id) {
+    public List<Contact> getContactById(Long id) {
         return userDao.findContactByOwnerId(id);
     }
 }

@@ -48,14 +48,6 @@ public class Converter {
         editProfileDto.setLastName(user.getLastName());
         editProfileDto.setPassword(user.getPassword());
         editProfileDto.setUsername(user.getUsername());
-        /*EditContactDto editContactDto = new EditContactDto();
-        editContactDto.setType(contactService.getAllTypeOfContacts());
-        editProfileDto.setContacts(List.of(editContactDto));
-        editProfileDto.setRoles(new HashSet<>());
-        editProfileDto.setRoles(user.getRoles().
-                stream().
-                map(String::valueOf).
-                collect(Collectors.toSet()));*/
         return editProfileDto;
     }
 

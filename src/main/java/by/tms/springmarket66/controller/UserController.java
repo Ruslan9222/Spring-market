@@ -35,8 +35,14 @@ public class UserController {
         return "user/home";
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "user/home";
+    }
+
     @GetMapping("/new")
-    public String newUser(Model model) {
+    public String showFormForNewUser(Model model) {
         CreateUserDto createUserDto = new CreateUserDto();
         createUserDto.setRoles(roleService.getAllRoles());
         model.addAttribute("user", createUserDto);
@@ -44,45 +50,47 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String login(Model model) {
+    public String showFormForLogin(Model model) {
         model.addAttribute("user", new LoginUserDto());
         return "user/login";
     }
 
-    @GetMapping("/edit")
-    public String edit(Model model) {
-        model.addAttribute("user", new EditProfileDto());
+    @GetMapping("{email}/edit")
+    public String showFormForUpdate(Model model, @PathVariable("email") String email) {
+        EditProfileDto editProfileDto = converter.editProfileToDto(userService.getUserByEmail(email));
+        model.addAttribute("user", editProfileDto);
         return "user/editProfile";
     }
 
     @GetMapping("/{email}/delete")
-    public String deleteGet(Model model,
-                            @PathVariable("email") String email) {
-        model.addAttribute("user", userService.findUserByEmail(email));
+    public String showFormForDelete(Model model,
+                                    @PathVariable("email") String email) {
+        EditProfileDto editProfileDto = converter.editProfileToDto(userService.getUserByEmail(email));
+        model.addAttribute("user", editProfileDto);
         return "user/delete";
     }
 
     @PostMapping("/login")
-    public String loginUser(@Valid @ModelAttribute("user") LoginUserDto loginUserDto,
-                            BindingResult bindingResult,
-                            HttpSession session) {
+    public String login(@Valid @ModelAttribute("user") LoginUserDto loginUserDto,
+                        BindingResult bindingResult,
+                        HttpSession session) {
         if (bindingResult.hasErrors()) {
             return "user/login";
         }
         User user = converter.loginUserToEntity(loginUserDto);
-        session.setAttribute("currentUser", userService.findUserByEmail(user.getEmail()));
-        System.out.println(userService.findUserByEmail(user.getEmail()));
+        session.setAttribute("currentUser", userService.getUserByEmail(user.getEmail()));
+        System.out.println(userService.getUserByEmail(user.getEmail()));
 
         return "shop/home";
     }
 
     @PostMapping("/new")
-    public String createUser(@Valid @ModelAttribute("user") CreateUserDto createUserDto,
-                             BindingResult bindingResult) {
+    public String create(@Valid @ModelAttribute("user") CreateUserDto createUserDto,
+                         BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "user/new";
         }
-        userService.create(converter.createUserToEntity(createUserDto));
+        userService.save(converter.createUserToEntity(createUserDto));
         return "user/home";
     }
 
@@ -90,16 +98,17 @@ public class UserController {
     public String update(@Valid @ModelAttribute("user") EditProfileDto editProfileDto,
                          @PathVariable("id") Long id,
                          BindingResult bindingResult) {
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "user/editProfile";
         }
-        userService.updateUserById(id,converter.editUserToEntity(editProfileDto));
+        userService.updateUserById(id, converter.editUserToEntity(editProfileDto));
         return "shop/home";
     }
 
-    @PatchMapping("/{email}/delete")                      //????????????????????
-    public String delete(@PathVariable("email") String email) {
-        userService.deleteUser(email);
+    @DeleteMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Long id, HttpSession session) {
+        userService.deleteById(id);
+        session.invalidate();
         return "user/home";
     }
 }
