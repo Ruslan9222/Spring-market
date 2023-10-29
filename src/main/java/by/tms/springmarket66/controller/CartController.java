@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import by.tms.springmarket66.dto.CartOfGoodsDTO;
+import by.tms.springmarket66.entity.CartOfGoods;
 import by.tms.springmarket66.entity.Goods;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

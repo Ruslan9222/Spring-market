@@ -21,8 +21,6 @@ public class CartOfGoods {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @NotEmpty
     private int quantity;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Goods> goodsList;
