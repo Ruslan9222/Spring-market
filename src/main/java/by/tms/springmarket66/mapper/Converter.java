@@ -1,9 +1,11 @@
 package by.tms.springmarket66.mapper;
 
+import by.tms.springmarket66.dto.CartOfGoodsDTO;
 import by.tms.springmarket66.dto.ContactDto;
 import by.tms.springmarket66.dto.CreateUserDto;
 
 import by.tms.springmarket66.dto.EditDto;
+import by.tms.springmarket66.entity.Goods;
 import by.tms.springmarket66.entity.Role;
 import by.tms.springmarket66.entity.User;
 import by.tms.springmarket66.service.ContactService;
@@ -47,5 +49,8 @@ public class Converter {
                 map(String::valueOf).
                 collect(Collectors.toSet()));
         return editDto;
+    }
+    public Goods goods(CartOfGoodsDTO cartOfGoodsDTO){
+        return new Goods();
     }
 }
