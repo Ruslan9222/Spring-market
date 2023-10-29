@@ -21,5 +21,6 @@ public class CartOfGoodsDTO {
     private List<Goods> goodsList;
 
     private List<User> user;
+    private int quantity;
 
 }

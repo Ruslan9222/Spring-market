@@ -21,7 +21,7 @@ public class CartController {
         return "cart/index";
     }
 
-    @GetMapping(value = "buy/{id}")
+    @GetMapping(value = "/buy/{id}")
     public String buy(@PathVariable("id") String id, HttpSession session) {
         CartOfGoodsDTO cartOfGoodsDTO = new CartOfGoodsDTO();
         if (session.getAttribute("cart") == null) {
@@ -42,7 +42,7 @@ public class CartController {
         return "redirect:/cart/index";
     }
 
-    @GetMapping(value = "remove/{id}")
+    @GetMapping(value = "/remove/{id}")
     public String remove(@PathVariable("id") String id, HttpSession session) {
         CartOfGoodsDTO cartOfGoodsDTO = new CartOfGoodsDTO();
         List<Goods> cart = (List<Goods>) session.getAttribute("cart");
@@ -52,9 +52,9 @@ public class CartController {
         return "redirect:/cart/index";
     }
 
-    private int exists(String id, List<Goods> cart) {
-        for (int i = 0; i < cart.size(); i++) {
-            if (cart.get(i).getGoods().getId().equalsIgnoreCase(id)) {
+    private int exists(String id, List<Goods> goods) {
+        for (int i = 0; i < goods.size(); i++) {
+            if (goods.get(i).getQuantity().getId().equalsIgnoreCase(id)) {
                 return i;
             }
         }
