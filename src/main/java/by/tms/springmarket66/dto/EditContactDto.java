@@ -14,8 +14,6 @@ import java.util.Set;
 @NoArgsConstructor
 public class EditContactDto {
 
-    private String email;
-
     @NotNull
     private Set<String> type;
 

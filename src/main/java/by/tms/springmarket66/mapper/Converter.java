@@ -65,7 +65,6 @@ public class Converter {
 
     public EditContactDto editContactToDto(User user){
         EditContactDto editContactDto = new EditContactDto();
-        editContactDto.setEmail(user.getEmail());
         editContactDto.setType(contactService.getAllTypeOfContacts());
         editContactDto.setContact(user.getContacts().
                 stream().
@@ -84,9 +83,10 @@ public class Converter {
                 collect(Collectors.toUnmodifiableSet());
         contact.setType(types);
         contact.setContact(editContactDto.getContact());
+        contact.setOwnerContacts(user);
         contacts.add(contact);
         user.setContacts(contacts);
-        user.setEmail(editContactDto.getEmail());
+
         return user;
     }
 

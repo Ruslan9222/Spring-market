@@ -36,6 +36,12 @@ public class UserService {
             return byUser;
     }
 
+    public User getUserAllInfoById(Long id){
+        User user = userDao.findUserById(id);
+        System.out.println("UserService " + user.getContacts());
+        return user;
+    }
+
     public void updateUserById(Long id, User user) {
         userDao.updateUserProfileById(id, user);
     }

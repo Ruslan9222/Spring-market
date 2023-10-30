@@ -54,6 +54,12 @@ public class UserController {
         model.addAttribute("user", new LoginUserDto());
         return "user/login";
     }
+    @GetMapping("/{id}/viewUser")
+        public String showFormForUserInfo(Model model,@PathVariable("id") Long id){
+        User user = userService.getUserAllInfoById(id);
+        model.addAttribute("user", user);
+        return "user/info";
+    }
 
     @GetMapping("{email}/edit")
     public String showFormForUpdate(Model model, @PathVariable("email") String email) {
@@ -80,7 +86,6 @@ public class UserController {
         User user = converter.loginUserToEntity(loginUserDto);
         session.setAttribute("currentUser", userService.getUserByEmail(user.getEmail()));
         System.out.println(userService.getUserByEmail(user.getEmail()));
-
         return "shop/home";
     }
 

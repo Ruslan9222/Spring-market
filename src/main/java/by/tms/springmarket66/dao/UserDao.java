@@ -43,6 +43,13 @@ public class UserDao {
         currentSession.update(userProfile);
     }
 
+    public void updateUserContactById(User user){
+        Session currentSession = sessionFactory.getCurrentSession();
+        User userById = currentSession.get(User.class, user.getId());
+        userById.setContacts(user.getContacts());
+        currentSession.update(userById);
+    }
+
     public void removeById(Long id) {
         Session currentSession = sessionFactory.getCurrentSession();
         User user = currentSession.get(User.class, id);
@@ -54,4 +61,11 @@ public class UserDao {
         User user = currentSession.get(User.class, id);
         return user.getContacts();
     }
+
+    public User findUserById(Long id) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        currentSession.createQuery("FROM User", User.class);
+        return currentSession.get(User.class,id);
+    }
+
 }

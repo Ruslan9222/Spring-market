@@ -1,6 +1,7 @@
 package by.tms.springmarket66.controller;
 
 import by.tms.springmarket66.dto.EditContactDto;
+import by.tms.springmarket66.entity.User;
 import by.tms.springmarket66.mapper.Converter;
 import by.tms.springmarket66.service.ContactService;
 import by.tms.springmarket66.service.UserService;
@@ -8,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -37,22 +35,17 @@ public class ContactController {
         return "contact/new";
     }
 
-    @PostMapping("/new")
+    @PostMapping("/new/{id}")
     public String create(@Valid @ModelAttribute("contact") EditContactDto editContactDto,
+                         @PathVariable ("id") Long id,
                          BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return "contact/new";
         }
-
-        return "contact";
+        User user = converter.editContactToEntity(editContactDto);
+        user.setId(id);
+        contactService.updateContactByIdUser(user);
+        return "shop/home";
     }
-
-
-
-
-
-
-
-
 
 }
