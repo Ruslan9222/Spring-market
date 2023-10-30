@@ -3,7 +3,6 @@ package by.tms.springmarket66.mapper;
 import by.tms.springmarket66.dto.CartOfGoodsDTO;
 import by.tms.springmarket66.entity.CartOfGoods;
 import by.tms.springmarket66.service.ContactService;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,7 +13,7 @@ public class CartMapper {
         this.cartMapper = cartMapper;
     }
 
-    public CartOfGoods createCartOfGoodsToCartOfGoods(@NotNull CartOfGoodsDTO cartOfGoodsDTO){
+    public CartOfGoods createCartOfGoodsToCartOfGoods(CartOfGoodsDTO cartOfGoodsDTO){
         return new CartOfGoods(0L,cartOfGoodsDTO.getQuantity(),cartOfGoodsDTO.getGoodsList());
     }
 }
