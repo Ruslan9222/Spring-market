@@ -1,9 +1,7 @@
 package by.tms.springmarket66.service;
 
 import by.tms.springmarket66.dao.CartDao;
-import by.tms.springmarket66.entity.CartOfGoods;
 import by.tms.springmarket66.entity.Goods;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,11 +13,18 @@ public class CartOfGoodsService {
     public CartOfGoodsService(CartDao cartDao) {
         this.cartDao = cartDao;
     }
-    public List<Goods> findAll() {
+    public List<Goods> findAllGoods() {
         return this.cartDao.findAll();
     }
-    public Goods findById(Long id){
-        return this.cartDao.findById(id);
+
+    public Goods findGoodsById(Long id) {
+        return  this.cartDao.findById(id);
+//        for (Goods goods : this.cartDao.findById(id)) {
+//            if (goods.getId().equals(id)) {
+//                return cartDao.findById(id);
+//            }
+//        }
+//        return null;
     }
 
 

@@ -5,6 +5,7 @@ import by.tms.springmarket66.dto.ContactDto;
 import by.tms.springmarket66.dto.CreateUserDto;
 
 import by.tms.springmarket66.dto.EditDto;
+import by.tms.springmarket66.entity.CartOfGoods;
 import by.tms.springmarket66.entity.Goods;
 import by.tms.springmarket66.entity.Role;
 import by.tms.springmarket66.entity.User;
@@ -50,7 +51,5 @@ public class Converter {
                 collect(Collectors.toSet()));
         return editDto;
     }
-    public Goods goods(CartOfGoodsDTO cartOfGoodsDTO){
-        return new Goods();
-    }
+
 }
