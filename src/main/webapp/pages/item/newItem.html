@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New item</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/item}" th:object="${item}">
+
+    <form th:action="@{/photoItem}" method="post" enctype="multipart/form-data">
+        <input type="file" name="photoItem" accept="image/*" required>
+        <button type="submit">Загрузить</button>
+    </form>
+    <br/>
+
+    <label for="name">Enter name of item: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <br/>
+
+    <p>Enter name of category: </p>
+    <select>
+        <option th:each="category : ${categories}"></option>
+    </select>
+    <br/>
+
+    <label for="description">Enter a description: </label>
+    <input type="text" th:field="*{description}" id="description"/>
+    <br/>
+
+    <label for="quantity">Enter a quantity: </label>
+    <input type="number" th:field="*{quantity}" id="quantity">
+    <br/>
+
+    <label for="price">Enter a price: </label>
+    <input type="number" th:field="*{price}" id="price">
+    <br/>
+
+    <input type="submit" value="Create"/>
+    
+</form>
+</body>
+</html>

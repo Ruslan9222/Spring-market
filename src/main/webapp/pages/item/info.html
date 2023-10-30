@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Show items</title>
+</head>
+<body>
+<p th:text="${item.getName()}">Name of item</p>
+<p th:text="${item.getPhotoItem()}">Photo</p>
+<p th:text="${item.getCategory()}">Category</p>
+<p th:text="${item.getDescription()}">Description</p>
+<p th:text="${item.getQuantity()}">Quantity</p>
+<p th:text="${item.getPrice()}">Price</p>
+
+<form th:method="POST" th:action="@{/item/{id}(id=${item.getId()})}">
+    <input type="submit" value="Ok"/>
+</form>
+</body>
+</html>
