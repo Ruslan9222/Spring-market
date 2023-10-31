@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Item</title>
+</head>
+<body>
+<form th:method="PATCH" th:action="@{/item/delete/{id}(id=${item.getId()})}" th:object="${item}">
+  <p th:text="${'Delete? ' + item.getId()}">Item</p>
+  <input type="submit" value="Yes"/>
+  <a th:href="@{/item/{id}/edit(id=${item.getId()()})}">No</a>
+</form>
+</body>
+</html>

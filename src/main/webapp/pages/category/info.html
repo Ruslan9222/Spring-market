@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Category info</title>
+</head>
+<body>
+<p th:text="${category.getName()}">All categories</p>
+
+<form th:method="POST" th:action="@{/item/{id}(id=${category.getId()})}">
+    <input type="submit" value="Ok"/>
+</form>
+</body>
+</html>
