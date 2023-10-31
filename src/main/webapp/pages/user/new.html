@@ -5,11 +5,7 @@
     <title>New person</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/user}" th:object="${user}">
-    <label for="username">Enter username: </label>
-    <input type="text" th:field="*{username}" id="username"/>
-    <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</div>
-    </br>
+<form th:method="POST" th:action="@{/user/new}" th:object="${user}">
     <label for="email">Enter email: </label>
     <input type="text" th:field="*{email}" id="email"/>
     <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</div>
@@ -19,7 +15,7 @@
     <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
     <br/>
     <label>
-        <select th:field="*{roles}" multiple>
+        <select th:field="*{roles}">
             <option th:each="role : ${user.getRoles()}" th:value="${role}" th:text="${role}"></option>
         </select>
     </label>

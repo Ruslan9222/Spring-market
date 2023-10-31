@@ -1,18 +1,19 @@
 package by.tms.springmarket66.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
-
-import java.util.Set;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class CreateUserDto {
+
+public class LoginUserDto {
     @NotNull
     @NotEmpty
     @Email(regexp = ".*@[a-z]*\\.[a-z]{2,}")
@@ -22,6 +23,4 @@ public class CreateUserDto {
     @NotEmpty(message = "Should be not empty")
     private String password;
 
-    @NotEmpty(message = "Should be not empty")
-    Set<String> roles;
 }

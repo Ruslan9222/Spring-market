@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/contact/new/{id}(id=${session.currentUser.getId()})}" th:object="${contact}">
+
+  <label for="contact">Enter contact: </label>
+  <input type="text" th:field="*{contact}" id="contact"/>
+  <div style="color:red" th:if="${#fields.hasErrors('contact')}" th:errors="*{contact}">Contact Error</div>
+  <br/>
+  <label>
+    <select th:field="*{type}">
+      <option th:each="type : ${contact.getType()}" th:value="${type}" th:text="${type}"></option>
+    </select>
+  </label>
+  <input type="submit" value="Create!"/>
+</form>
+</body>
+</html>

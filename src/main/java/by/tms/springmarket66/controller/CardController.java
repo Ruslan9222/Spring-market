@@ -16,10 +16,13 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/card")
 public class CardController {
 
-    @Autowired
-    private HttpServletRequest request;
-    @Autowired
-    private CardService cardService;
+    private final HttpServletRequest request;
+    private final CardService cardService;
+
+    public CardController(HttpServletRequest request, CardService cardService) {
+        this.request = request;
+        this.cardService = cardService;
+    }
 
     @GetMapping
     public String card() {
@@ -27,7 +30,7 @@ public class CardController {
     }
 
     @PostMapping
-    public String order(Card card, HttpSession httpSession) {
+    public String card(Card card, HttpSession httpSession) {
         User user = (User) request.getSession().getAttribute("user");
         cardService.create(card);
         return "card";

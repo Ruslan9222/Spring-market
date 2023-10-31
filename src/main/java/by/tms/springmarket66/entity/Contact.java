@@ -1,9 +1,6 @@
 package by.tms.springmarket66.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -14,6 +11,7 @@ import java.util.Set;
 @Getter
 @Entity
 @Table(name = "Contacts")
+@ToString
 public class Contact {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,4 +22,8 @@ public class Contact {
     private Set<Type> type;
 
     private String contact;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User ownerContacts;
 }

@@ -5,8 +5,9 @@
     <title> Home Page </title>
 </head>
 <body>
-<a href="/user/new">Login</a>
+<p th:text="${session.values()}" />
+<p th:text="${session.size()}" />
 <a href="/user/new">Registration</a>
-
+<a href="/user/login">Login</a>
 </body>
 </html>

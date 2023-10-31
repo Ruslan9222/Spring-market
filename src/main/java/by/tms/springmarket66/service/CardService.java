@@ -7,8 +7,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CardService {
-    @Autowired
-    private CardDao cardDao;
+    private final CardDao cardDao;
+
+    public CardService(CardDao cardDao) {
+        this.cardDao = cardDao;
+    }
 
     public void create(Card card){
         cardDao.save(card);
