@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Store home page </title>
+</head>
+<body>
+<p th:text="${'id: ' + session.currentUser.getId()}">VALUE</p>
+<p th:text="${'Email: ' + session.currentUser.getEmail()}">VALUE</p>
+<p th:text="${'role : ' + session.currentUser.getRoles()}">VALUE</p>
+<a th:href="@{/user/{id}/viewUser(id=${session.currentUser.getId()})}">Read all information about the user</a>
+<a th:href="@{/user/{email}/edit(email=${session.currentUser.getEmail()})}">Edit profile</a>
+<a th:href="@{/contact/new}">Add contacts</a>
+<a th:href="@{/user/{email}/delete(email=${session.currentUser.getEmail()})}">Delete profile</a>
+<a th:href="@{/user/logout}">Logout</a>
+</body>
+</html>

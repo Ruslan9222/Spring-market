@@ -21,16 +21,13 @@ public class Order {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "users_id")
-    public User user;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User ownerOrders;
 
     private Long productId;
 
     private String address;
 
     private LocalDateTime date;
-
-
-
 
 }
