@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+
 @Table(name = "cards")
 @Entity
 @AllArgsConstructor
@@ -17,7 +18,7 @@ public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    private String username;
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User ownerCard;
@@ -27,5 +28,4 @@ public class Card {
     private String name;
 
     private Integer cvv;
-
 }
