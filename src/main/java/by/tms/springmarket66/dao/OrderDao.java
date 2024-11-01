@@ -4,11 +4,16 @@ import by.tms.springmarket66.entity.Order;
 import by.tms.springmarket66.entity.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
+
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import javax.transaction.Transactional;
+import javax.transaction.Transactional
 import java.time.LocalDate;
+
 
 @Repository
 public class OrderDao {
@@ -20,4 +25,16 @@ public class OrderDao {
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.save(order);
     }
+    public void save(Order order) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        currentSession.save(order);
+    }
+
+
+
+
+
+
+
+
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Show</title>
+</head>
+<body>
+<p th:text="${'Email: ' + user.getEmail()}">VALUE</p>
+<p th:text="${user.roles}">VALUE</p>
+<a th:href="@{/user/{email}/delete(email=${user.getEmail()})}">Delete profile</a>
+
+<h1>Profile info</h1>
+<p th:text="${'FirstName: ' + user.getFirstName()()}">VALUE</p>
+<p th:text="${'LastName: ' + user.getLastName()()()}">VALUE</p>
+<p th:text="${'LastName: ' + user.getUsername()}">VALUE</p>
+<a th:href="@{/user/{email}/edit(email=${user.getEmail()})}">Edit profile</a>
+
+
+<h1>Contact list</h1>
+<table>
+    <tr>
+        <th>Type</th>
+        <th>Contact</th>
+    </tr>
+    <tr th:each="contact : ${user.getContacts()}">
+        <td th:text="${contact.type}">VALUE</td>
+        <td th:text="${contact.contact}">VALUE</td>
+    </tr>
+</table>
+
+<a th:href="@{/contact/new}">Add contacts</a>
+
+
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Category</title>
+</head>
+<body>
+<form th:method="PATCH" th:action="@{/category/delete/{id}(id=${category.getId()})}" th:object="${category}">
+    <p th:text="${'Delete? ' + category.getId()}">Item</p>
+    <input type="submit" value="Yes"/>
+    <a th:href="@{/category/{id}/edit(id=${category.getId()()})}">No</a>
+</form>
+</body>
+</html>
