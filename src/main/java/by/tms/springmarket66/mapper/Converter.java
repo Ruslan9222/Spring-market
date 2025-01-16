@@ -1,10 +1,14 @@
 package by.tms.springmarket66.mapper;
 
 import by.tms.springmarket66.dto.CartOfGoodsDTO;
-import by.tms.springmarket66.dto.ContactDto;
+
 import by.tms.springmarket66.dto.CreateUserDto;
-import by.tms.springmarket66.dto.EditDto;
+
+import by.tms.springmarket66.dto.EditContactDto;
+import by.tms.springmarket66.dto.EditProfileDto;
+import by.tms.springmarket66.dto.LoginUserDto;
 import by.tms.springmarket66.entity.CartOfGoods;
+import by.tms.springmarket66.entity.Contact;
 import by.tms.springmarket66.entity.Goods;
 import by.tms.springmarket66.entity.Role;
 import by.tms.springmarket66.entity.Type;
@@ -42,6 +46,7 @@ public class Converter {
     }
 
     public EditProfileDto editProfileToDto(User user) {
+
         EditProfileDto editProfileDto = new EditProfileDto();
         editProfileDto.setEmail(user.getEmail());
         editProfileDto.setFirstName(user.getFirstName());
